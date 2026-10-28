@@ -504,3 +504,35 @@ describe("write tools", () => {
     });
   });
 });
+
+describe("HubSpot failure messages", () => {
+  const failWith = async (status: number) => {
+    stubHubspot({ status });
+    const client = await connect();
+    const result = await client.callTool({
+      name: "search_contacts",
+      arguments: { query: "Rivera" },
+    });
+    await client.close();
+    return textOf(result);
+  };
+
+  it.each([401, 403])(
+    "says the credentials were rejected on %i, without suggesting a retry",
+    async (status) => {
+      const text = await failWith(status);
+      expect(text).toContain("credentials");
+      expect(text).toContain(String(status));
+      expect(text).not.toContain("Try again");
+    },
+  );
+
+  it.each([429, 500, 503])(
+    "suggests trying again on a temporary %i",
+    async (status) => {
+      const text = await failWith(status);
+      expect(text).toContain("Try again");
+      expect(text).not.toContain("credentials");
+    },
+  );
+});

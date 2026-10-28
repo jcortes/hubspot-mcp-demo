@@ -28,7 +28,7 @@ Create a [service key](https://developers.hubspot.com/blog/hubspot-service-keys-
 | `crm.objects.contacts.write` | creating notes and tasks on contacts, and loading demo contacts |
 | `crm.objects.deals.write` | loading demo deals (only the seed script needs it) |
 
-Notes and tasks have no scope of their own in the scope picker. With the four scopes above, creating a note and a task on a contact worked against a real account. Which of them is strictly required for notes and tasks has not been tested one by one.
+Notes and tasks have no scope of their own in the scope picker. With only `crm.objects.contacts.read`, `crm.objects.contacts.write` and `crm.objects.deals.read`, all five tools worked against a real account, so `deals.write` is needed only by the seed script. The key can still archive notes and tasks through HubSpot's API; the server's protection is that it exposes no delete tool.
 
 ## Demo data
 

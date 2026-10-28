@@ -70,6 +70,7 @@ export async function hubspotFetch<T>(
     body: body === undefined ? undefined : JSON.stringify(body),
   });
   if (!response.ok) throw new HubspotError(response.status);
+  if (response.status === 204) return undefined as T;
   return (await response.json()) as T;
 }
 

@@ -46,6 +46,12 @@ const run = async ({
     if (notFound && error instanceof HubspotError && error.status === 404) {
       return textResult(notFound, true);
     }
+    if (error instanceof HubspotError && [401, 403].includes(error.status)) {
+      return textResult(
+        `HubSpot rejected the server's credentials (status ${error.status}). Check the HubSpot key and its scopes; retrying will not help.`,
+        true,
+      );
+    }
     const status = error instanceof HubspotError ? ` (status ${error.status})` : "";
     return textResult(
       `HubSpot could not be reached or returned an error${status}. Try again in a moment.`,
