@@ -1,0 +1,31 @@
+{
+  "name": "hubspot-mcp-demo",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "vitest run",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "seed": "node --env-file=.env.local scripts/seed.ts",
+    "manual-check": "node --env-file=.env.local scripts/manual-check.ts"
+  },
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@modelcontextprotocol/server": "^2.4.0",
+    "mcp-handler": "^2.3.0",
+    "next": "^16.4.3",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/client": "^2.4.0",
+    "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5"
+  },
+  "private": true
+}
